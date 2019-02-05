@@ -55,7 +55,7 @@ What you will see now is that the name of your virtual environment will appear o
 ```
 (venv) test&test:~ path/to/directory$ 
 ```
-You are now running inside your virtual environment, anything installed in here will only be installed to the virtual environment.
+You're now running inside your virtual environment. Anything installed in here will only be installed to this virtual environment.
 
 You can exit the virtual environment by typing:
 
@@ -72,5 +72,18 @@ As mentioned before, if you navigate to where you created the virtual environmen
 
 ### 2.2 Installing into your virtual environment  
 
+Installing packages into your virtual environment is very similar to installing packages regularly. First we need to activate our virtual environment:
 
+``` $ venv\bin\activate
+```
+Then install whatever package you want using pip. We are going to install the great numpy package
 
+``` $ pip install numpy
+```
+*NOTE: As my virtual environment was installed only using Python 3, I no longer need to call pip3. Using pip3 will work however*
+
+Doing this will install the numpy package into your virtual environment's folder. If you now run any Python script from within your virtual environment which imports numpy it will execute correctly. To check this you can deactivate your virtual environment and then attempt to run the same script.  
+
+## Conclusion
+
+Congrats! You have now successfully created your own virtual environment and intalled packages directly into it. You can now begin creating seperate environments for new projects to ensure that you do not break dependencies. There are numerous different commands for virtual environments for which I recommend that you read the [virtualenv](https://pypi.org/project/virtualenv/) documentation. There are also a number of other packages such as [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/index.html) which can be used to streamline your virtual env use.
