@@ -74,12 +74,12 @@ As mentioned before, if you navigate to where you created the virtual environmen
 
 Installing packages into your virtual environment is very similar to installing packages regularly. First we need to activate our virtual environment:
 
-``` $ venv\bin\activate
-```
+``` $ venv\bin\activate ```
+
 Then install whatever package you want using pip. We are going to install the great numpy package
 
-``` $ pip install numpy
-```
+``` $ pip install numpy ```
+
 *NOTE: As my virtual environment was installed only using Python 3, I no longer need to call pip3. Using pip3 will work however*
 
 Doing this will install the numpy package into your virtual environment's folder. If you now run any Python script from within your virtual environment which imports numpy it will execute correctly. To check this you can deactivate your virtual environment and then attempt to run the same script.  
