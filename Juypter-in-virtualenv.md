@@ -1,4 +1,4 @@
-#Making Jupyter work with your virtual environment
+# Making Jupyter work with your virtual environment
 
 Jupyter is a very useful tool for programming in Python and is commonly used in areas such as data science. You can read more about Jupyter [here](https://jupyter.org/).
 
@@ -34,7 +34,7 @@ You will recieve output which shows you the path to your python installation fol
 Keep a note of this for later!
 Deactivate your virtual environment using the deactivate command shown in the previous guide.
 
-## Step 2 - Creating your new Jupyter Python kernel:
+## Step 2 - Creating your a folder in Jupyter's configuration directory for your kernel:
 
 In this step we will need to insert a file into Jupyter's configuration files which points to your virtual environment.
 
@@ -56,6 +56,65 @@ data:
 runtime:
     /run/user/1000/jupyter
 ```
-What we are interested in here is the first path under `data:` specifically `/home/username/.local/share/jupyter` 
-    
+What we are interested in here is the first path under `data:` specifically `/home/username/.local/share/jupyter` a thiss is where Jupyter will look for kernels,
+
+Make the folder for your kernel:
+```
+$ mkdir /home/username/.local/share/jupyter/kernels/venv
+```
+If you enter the kernels folder you can see your new kernel folder:
+```
+$ cd /home/username/.local/share/jupyter/kernels
+$ ls
+python2 python3 venv
+```
+
+## Step 3 - Making your virtual environment kernel available in Jupyter 
+
+Inside the folder for each kernel inside the `kernels` folder, you will notice a file called kernel.json
+
+*Note: If at this point you are unaware what JSON is, don't worry, you can just copy in below and leave it at that.*
+
+The `kernel.json` file specifies the information that Jupyter needs to start up your custom kernel. If you would like to know more about how the kernel.json folder works, read this helpful guide from the [Jupyter documentation](https://jupyter-client.readthedocs.io/en/stable/kernels.html).
+
+
+Navigate now into the folder for your virtual environment kernel, create a `kernel.json` file, and open it for editing
+```
+$ cd venv
+$ touch kernel.json
+$ nano kernel.json
+```
+Then enter the following:
+For you will need the location of your python installation in your virtual environment, which we noted down at the end of step 1, enter it as the first item in the "argv" tree.
+```
+{
+ "argv": [
+  "/home/username/.../venv/bin/python",
+  "-m",
+  "ipykernel_launcher",
+  "-f",
+  "{connection_file}"
+ ],
+ "display_name": "venv",
+ "language": "python"
+}
+```
+Save and exit the file.
+Navigate back to your home directory using `cd` and launch Jupyter regularly using `jupyter notebook`.
+
+Create a new notebook and click on the kernel selector in the top right hand corner, you should now see a kernel named after whatever you chose to name the kernel in the `kernel.json` file.
+
+If everything is working fine, the kernel will be ready to go!
+
+Common errors include not have the structure of the JSON file correct (missing brackets, double quotes, e.t.c.). Another issue is that the ipykernel you installed isnt the right one for the version of Python you are using. Make sure to use the `pip3` command in your virtual environment.
+
+## An arguably easier method of using Jupyter with your virtual environment...
+
+You could install jupyter directly in your virtual environment and each virtual environment you create. Therefore running `jupyter notebook` from the virtual environment will create an instance of jupyter using the python installation for that specific virtual environment. 
+
+Personally, I like the flexibility of being able to switch between different virtual environments from one place. It's up to you.
+
+Thanks for reading!
+
+
 
